@@ -27,7 +27,7 @@ namespace Food {
 
     // 获取随机位置，指定一个区域内获取，如果这个位置有内容，则重新获取
     std::pair<int, int> randomPixel(int startX, int startY, int endX, int endY, int count) {
-        if(count>5) {
+        if(count>5) {// 超过5次失败，就不再重试
             return std::make_pair(-1, -1);// 返回-1,-1的位置表示失败
         }
         int xTemp = rand()%(endX+1)+startX;// 随机获取一个 startX~endX 的数字（头尾包含）

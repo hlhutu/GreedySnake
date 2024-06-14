@@ -30,6 +30,7 @@ namespace Anime {
             // 会存在超出边界的问题，暂时不处理
             if(x>WIDTH || x<0 || y>HEIGHT|| y<0) {
             }
+            // 在指定位置打印当前字符
             Tools::AtPosition(x, y, [&](){
                 Tools::SetColor(color);
                 std::cout << s;
@@ -43,20 +44,6 @@ namespace Anime {
             });
         }
     };
-
-    /**
-     * 测试所有像素点
-     * @param color 
-     */
-    void testScreen() {
-        int color = 0;
-        for (int x = 0; x < WIDTH; ++x) {
-            for (int y = 0; y < HEIGHT; ++y) {
-                ++color;
-                Tools::PrintAt(x, y, "■", color);
-            }
-        }
-    }
 }
 
 #endif //CLION1_ANIME_H
