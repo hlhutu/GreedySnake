@@ -5,6 +5,7 @@
 #ifndef CLION1_SNAKE_H
 #define CLION1_SNAKE_H
 #include <deque>
+#include <vector>
 #include <utility>
 #include "Anime.h"
 
@@ -16,18 +17,27 @@ public:
     enum Direction {UP, DOWN, LEFT, RIGHT};// 方向的枚举
     Direction direction = DOWN;// 蛇的方向
 private:
-    std::deque<Anime::Pixel> steps;// 蛇就是一个像素的队列
+    std::deque<Anime::Pixel> bodies;// 蛇就是一个像素的队列
     int food = 0;// 未消化的食物
 public:
-    // 构造函数，一个长度为3的蛇
-    explicit Snake(): food(0) {
-        initFront(0, 0);
-        addFront();
-        addFront();
+    // 构造函数，指定长度
+    explicit Snake(int len): food(0) {
+        for (int i = 0; i < len; ++i) {
+            if(i==0) {
+                initFront(5, 5);
+            }else {
+                addFront();
+            }
+        }
     }
     // 获取蛇头
-    Anime::Pixel getHead() {
-        return steps.front();
+    Anime::Pixel& getHead() {
+        return bodies.front();
+    }
+    // 获取整个身体（不要头）
+    std::vector<Anime::Pixel> getBodies() {
+        std::vector<Anime::Pixel> vec(bodies.begin()+1, bodies.end());
+        return vec;
     }
     // 吃i个食物
     void eat(int i) {
@@ -35,12 +45,12 @@ public:
     }
     // 初始化一个头
     void initFront(int x, int y) {
-        steps.emplace_front(Anime::Pixel{x, y, "●", 13});// 最原始的头
-        steps.front().show();// 展示新头
+        bodies.emplace_front(Anime::Pixel{x, y, "●", 13});// 最原始的头
+        bodies.front().show();// 展示新头
     }
     // 添加一个头
     void addFront() {
-        const Anime::Pixel& oldFront = steps.front();
+        const Anime::Pixel& oldFront = bodies.front();
         // 新的头
         Anime::Pixel newFront;
         if(this->direction==Snake::UP) {
@@ -52,18 +62,22 @@ public:
         }else if(this->direction==Snake::RIGHT) {
             newFront = {oldFront.x+1, oldFront.y, oldFront.s, oldFront.color};
         }
-        steps.emplace_front(newFront);// 加入队列
-        steps.front().show();// 展示新头
+        bodies.emplace_front(newFront);// 加入队列
+        bodies.front().show();// 展示新头
     }
     // 每一帧移动蛇的位置，即创建新头，移除尾巴
     void render() {
+        // 空蛇不渲染
+        if(bodies.empty()) {
+            return;
+        }
         // 移除尾巴
         if(food>0) {
             food--;// 如果还有没消化的食物，则尾巴不变短
         }else {
             // 去掉尾部
-            steps.back().clean();// 清理尾部
-            steps.pop_back();// 然后出列
+            bodies.back().clean();// 清理尾部
+            bodies.pop_back();// 然后出列
         }
         // 增加新的头
         addFront();

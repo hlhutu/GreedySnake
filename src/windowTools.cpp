@@ -44,4 +44,18 @@ namespace Tools {
         SetCursorPosition(x, y);
         fun();
     }
+
+    /**
+     * 在指定位置打印
+     * @param x
+     * @param y
+     * @param chars
+     * @param color
+     */
+    void PrintAt(int x, int y, char chars[], int color) {
+        AtPosition(x, y, [&](){
+            SetColor(color);
+            printf("%s", chars);
+        });
+    }
 }

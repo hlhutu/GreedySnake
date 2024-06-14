@@ -8,6 +8,10 @@
 // 全局配置
 
 // 窗口宽高
-int WIDTH = 30, HEIGHT = 30;
+int const WIDTH = 50;
+int const HEIGHT = 30;
+
+// 窗口所有像素点，如果像素被占用，标记为1
+int screen[WIDTH][HEIGHT];
 
 #endif //CLION1_GLOBALCONFIG_H

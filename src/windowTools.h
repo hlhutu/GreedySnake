@@ -36,6 +36,11 @@ namespace Tools {
      * 在指定位置执行操作
      */
     void AtPosition(int x, int y, const std::function<void()> &func);
+
+    /**
+     * 在指定位置打印
+     */
+    void PrintAt(int x, int y, char * chars, int color);
 }
 
 #endif // TOOLS_H
