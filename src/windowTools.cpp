@@ -1,6 +1,7 @@
 #include "windowTools.h"
 #include <windows.h>
 #include <cstdio>
+#include <string>
 
 /**
  * windows工具类
@@ -52,10 +53,10 @@ namespace Tools {
      * @param chars
      * @param color
      */
-    void PrintAt(int x, int y, char chars[], int color) {
+    void PrintAt(int x, int y, std::string s, int color) {
         AtPosition(x, y, [&](){
             SetColor(color);
-            printf("%s", chars);
+            printf("%s", s.c_str());
         });
     }
 }

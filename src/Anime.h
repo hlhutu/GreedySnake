@@ -44,6 +44,17 @@ namespace Anime {
             });
         }
     };
+    /**
+     * 清屏
+     */
+    void cls() {
+        for (int x = 0; x < WIDTH; ++x) {
+            for (int y = 0; y < HEIGHT; ++y) {
+                screen[x][y] = 0;
+                std::cout << "  ";
+            }
+        }
+    }
 }
 
 #endif //CLION1_ANIME_H

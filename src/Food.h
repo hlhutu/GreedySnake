@@ -17,12 +17,19 @@
 namespace Food {
     // 食物对象
     Anime::Pixel food;
-    int foodCount = 0;// 场上食物数
-    int foodMax = 1;// 最大食物数
+    // 食物数量
+    int foodCount = 0;
+    // 食物最大数量
+    int maxFoodCount = 1;
 
     // 吃掉指定数量的食物
     void eatFood(int i) {
-        foodCount -= i;
+        foodCount-=i;//这里不需要清理坐标，因为每次只能吃一个，食物的位置直接被蛇头占用了
+    }
+
+    // 吃掉全部，这个只清空计数器，不清理坐标，多个食物的情况下会有问题
+    void eatAll() {
+        foodCount = 0;
     }
 
     // 获取随机位置，指定一个区域内获取，如果这个位置有内容，则重新获取
@@ -43,7 +50,7 @@ namespace Food {
 
     // 刷新食物
     void fresh() {
-        if(foodCount>=foodMax) {// 超过上限，不再刷新
+        if(foodCount>=maxFoodCount) {
             return;
         }
         // 设置随机种子

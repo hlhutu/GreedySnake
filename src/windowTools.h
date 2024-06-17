@@ -2,6 +2,7 @@
 #define TOOLS_H
 #include <functional>
 #include "windows.h"
+#include <string>
 
 /**
  * 定义一些窗口工具
@@ -40,7 +41,7 @@ namespace Tools {
     /**
      * 在指定位置打印
      */
-    void PrintAt(int x, int y, char * chars, int color);
+    void PrintAt(int x, int y, std::string chars, int color);
 }
 
 #endif // TOOLS_H

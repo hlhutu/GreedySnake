@@ -7,6 +7,9 @@
 
 #include <vector>
 #include <set>
+#include <map>
+#include <functional>
+#include <conio.h>
 
 /**
  * 游戏控制
@@ -37,6 +40,25 @@ namespace Game {
      */
     bool isCollide(int x, int y) {
         return screen[x][y];
+    }
+    /**
+     * 根据键盘输入处理事件
+     */
+    void handlerKeyInput(const std::map<int, std::function<void(int)>>& map) {
+        if(!kbhit()) {
+            return;// 没点击键盘
+        }
+        // 获取所有字符，一次输入可能有2个字符
+        int ch = getch();
+        if(ch==0 || ch==224) {
+            ch = getch();
+        }
+        // 取到对应的处理函数
+        auto it = map.find(ch);
+        // 如果找到对应的处理函数
+        if(it!=map.end()) {
+            it->second(ch);//执行处理函数
+        }
     }
 }
 
